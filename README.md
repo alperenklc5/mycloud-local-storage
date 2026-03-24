@@ -1,5 +1,32 @@
 # MyCloud - Kişisel Yerel Bulut Sunucusu
 <p align="center">
+  <h3>💻 Masaüstü Görünümü</h3>
+</p>
+<table align="center">
+  <tr>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/f0e5db84-2ce3-4aa0-aa0a-f18590789769" width="400" alt="Masaüstü Ekranı 1">
+    </td>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/e402713d-5995-42c6-a66c-aae1c0112c45" width="400" alt="Masaüstü Ekranı 2">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/17ef8f7d-be2b-40a3-abb3-be8ec3b1e54c" width="400" alt="Masaüstü Ekranı 3">
+    </td>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/607fef80-95fd-47b2-9720-33ff744b6132" width="400" alt="Masaüstü Ekranı 4">
+    </td>
+  </tr>
+</table>
+
+<br>
+<hr>
+<br>
+
+<p align="center">
+<p align="center">
   <h3>📱 Mobil Görünüm (Capacitor)</h3>
 </p>
 <table align="center">
