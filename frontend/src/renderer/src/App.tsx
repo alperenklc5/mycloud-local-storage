@@ -262,8 +262,9 @@ function App() {
   const [imgTranslate, setImgTranslate] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (localStorage.getItem('cloudAuth') === 'true') setIsAuthenticated(true);
-  }, []);
+  // Şifre falan sorma, direkt içeri al!
+  setIsAuthenticated(true);
+}, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
