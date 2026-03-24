@@ -1,0 +1,18 @@
+# Node paketleri
+node_modules/
+
+# Frontend derleme dosyaları
+dist/
+build/
+.next/
+
+# Backend kullanıcı verileri (Olur da yanlışlıkla atarsan diye koruma)
+backend/hls/
+backend/storage/
+backend/thumbnails/
+backend/uploads/
+
+# Çevre değişkenleri ve loglar
+.env
+npm-debug.log*
+pm2.log
