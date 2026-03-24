@@ -1,5 +1,4 @@
-[providers]
-name = "node"
+providers = ["node"]
 
 [phases.setup]
 aptPkgs = ["ffmpeg"]
@@ -8,7 +7,7 @@ aptPkgs = ["ffmpeg"]
 cmds = ["cd frontend && npm install", "cd backend && npm install"]
 
 [phases.build]
-cmds = ["cd frontend && npm run build", "cp -r frontend/dist ../backend/dist || true"]
+cmds = ["cd frontend && npm run build", "cp -r frontend/dist backend/"]
 
 [start]
 cmd = "cd backend && node index.js"
