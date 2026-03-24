@@ -1,25 +1,52 @@
 # MyCloud - Kişisel Yerel Bulut Sunucusu
-
-### Masaüstü Görünümü
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f0e5db84-2ce3-4aa0-aa0a-f18590789769" width="400" />
-  <img src="https://github.com/user-attachments/assets/e402713d-5995-42c6-a66c-aae1c0112c45" width="400" />
+  <h3>💻 Masaüstü Görünümü</h3>
 </p>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/17ef8f7d-be2b-40a3-abb3-be8ec3b1e54c" width="400" />
-  <img src="https://github.com/user-attachments/assets/607fef80-95fd-47b2-9720-33ff744b6132" width="400" />
-</p>
+<table align="center">
+  <tr>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/f0e5db84-2ce3-4aa0-aa0a-f18590789769" width="400" alt="Masaüstü Ekranı 1">
+    </td>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/e402713d-5995-42c6-a66c-aae1c0112c45" width="400" alt="Masaüstü Ekranı 2">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/17ef8f7d-be2b-40a3-abb3-be8ec3b1e54c" width="400" alt="Masaüstü Ekranı 3">
+    </td>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/607fef80-95fd-47b2-9720-33ff744b6132" width="400" alt="Masaüstü Ekranı 4">
+    </td>
+  </tr>
+</table>
 
-###  Mobil Görünüm
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/f617f17f-8be1-4aa1-9946-aa690d4d64b7" height="400" />
-  <img src="https://github.com/user-attachments/assets/34ba67c7-dda6-4788-bf1a-ea90d5c28b65" height="400" />
-  <img src="https://github.com/user-attachments/assets/0ccdd157-025b-4ef9-a6f6-6ab7351fcf54" height="400" />
-  <img src="https://github.com/user-attachments/assets/68787753-3076-4777-b459-ff9b8691593e" height="400" />
-</p>
-
+<br>
 <hr>
+<br>
 
+<p align="center">
+  <h3>📱 Mobil Görünüm (Capacitor)</h3>
+</p>
+<table align="center">
+  <tr>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/f617f17f-8be1-4aa1-9946-aa690d4d64b7" width="200" alt="Mobil Ekranı 1">
+    </td>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/34ba67c7-dda6-4788-bf1a-ea90d5c28b65" width="200" alt="Mobil Ekranı 2">
+    </td>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/0ccdd157-025b-4ef9-a6f6-6ab7351fcf54" width="200" alt="Mobil Ekranı 3">
+    </td>
+    <td align="center" valign="middle">
+      <img src="https://github.com/user-attachments/assets/68787753-3076-4777-b459-ff9b8691593e" width="200" alt="Mobil Ekranı 4">
+    </td>
+  </tr>
+</table>
+
+<br>
+<hr>
 Bu proje, atıl durumdaki eski bir bilgisayara Ubuntu Server kurularak geliştirilmiş kişisel bir bulut depolama uygulamasıdır. Temel amacı, uzaktan erişim sağlayarak (Tailscale vb. araçlarla) dosya yükleme, indirme, klasör yönetimi ve mobil cihazlardan otomatik yedekleme yapmaktır.
 
 Proje geliştirilirken donanım ve ağ kısıtlamalarından kaynaklı çeşitli sorunlarla karşılaşılmış ve bu sorunlar backend tarafında uygulanan çözümlerle giderilmiştir.
