@@ -10,12 +10,12 @@
   <img src="https://github.com/user-attachments/assets/607fef80-95fd-47b2-9720-33ff744b6132" width="400" />
 </p>
 
-### Mobil Görünüm
+###  Mobil Görünüm
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f617f17f-8be1-4aa1-9946-aa690d4d64b7" width="200" />
-  <img src="https://github.com/user-attachments/assets/34ba67c7-dda6-4788-bf1a-ea90d5c28b65" width="200" />
-  <img src="https://github.com/user-attachments/assets/0ccdd157-025b-4ef9-a6f6-6ab7351fcf54" width="200" />
-  <img src="https://github.com/user-attachments/assets/68787753-3076-4777-b459-ff9b8691593e" width="200" />
+  <img src="https://github.com/user-attachments/assets/f617f17f-8be1-4aa1-9946-aa690d4d64b7" height="400" />
+  <img src="https://github.com/user-attachments/assets/34ba67c7-dda6-4788-bf1a-ea90d5c28b65" height="400" />
+  <img src="https://github.com/user-attachments/assets/0ccdd157-025b-4ef9-a6f6-6ab7351fcf54" height="400" />
+  <img src="https://github.com/user-attachments/assets/68787753-3076-4777-b459-ff9b8691593e" height="400" />
 </p>
 
 <hr>
