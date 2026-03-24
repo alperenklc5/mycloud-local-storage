@@ -6,7 +6,7 @@ const multer = require('multer');
 const ffmpeg = require('fluent-ffmpeg');
 const http = require('http');
 const { Server } = require("socket.io");
-const sharp = require('sharp'); //resim küçültücü
+const sharp = require('sharp'); //resim kÃ¼Ã§Ã¼ltÃ¼cÃ¼
 
 const app = express();
 const PORT = 3000;
@@ -23,7 +23,7 @@ const STORAGE_DIR = path.join(__dirname, 'storage');
 const HLS_DIR = path.join(__dirname, 'hls');
 const CHUNKS_DIR = path.join(__dirname, 'chunks_tmp');
 const HIDDEN_FILE = path.join(__dirname, 'hidden.json');
-const THUMBS_DIR = path.join(__dirname, 'thumbnails'); // ?? YENÝ: Thumbnail klasörü
+const THUMBS_DIR = path.join(__dirname, 'thumbnails'); // ?? YENÃ: Thumbnail klasÃ¶rÃ¼
 
 if (!fs.existsSync(STORAGE_DIR)) fs.mkdirSync(STORAGE_DIR);
 if (!fs.existsSync(HLS_DIR)) fs.mkdirSync(HLS_DIR);
@@ -33,7 +33,7 @@ if (!fs.existsSync(HIDDEN_FILE)) fs.writeFileSync(HIDDEN_FILE, JSON.stringify([]
 
 app.use('/storage', express.static(STORAGE_DIR));
 app.use('/stream', express.static(HLS_DIR));
-app.use('/thumbnails', express.static(THUMBS_DIR)); // ?? YENÝ: Dýþarýya açýyoruz
+app.use('/thumbnails', express.static(THUMBS_DIR)); // ?? YENÃ: DÃ½Ã¾arÃ½ya aÃ§Ã½yoruz
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -52,34 +52,35 @@ const chunkUpload = multer({ storage: multer.memoryStorage() });
 function getHiddenItems() { try { return JSON.parse(fs.readFileSync(HIDDEN_FILE, 'utf8')); } catch { return []; } }
 function saveHiddenItems(items) { fs.writeFileSync(HIDDEN_FILE, JSON.stringify(items)); }
 
-// ?? YENÝ: Thumbnail Üretici Fonksiyonlar
+// ?? YENÃ: Thumbnail Ãœretici Fonksiyonlar
 async function generateThumbnail(filePath, fileName, folderPath) {
     const ext = path.extname(fileName).toLowerCase();
     const destDir = path.join(THUMBS_DIR, folderPath);
     if (!fs.existsSync(destDir)) fs.mkdirSync(destDir, { recursive: true });
 
     if (['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) {
-        // Resimler için Sharp ile 300px webp (Aþýrý hýzlý ve küçük)
+        // Resimler iÃ§in Sharp ile 300px webp (AÃ¾Ã½rÃ½ hÃ½zlÃ½ ve kÃ¼Ã§Ã¼k)
         const thumbPath = path.join(destDir, fileName + '.webp');
         try { await sharp(filePath).resize({ width: 300, withoutEnlargement: true }).webp({ quality: 60 }).toFile(thumbPath); } 
-        catch (err) { console.error("Resim thumbnail hatasý:", err); }
+        catch (err) { console.error("Resim thumbnail hatasÃ½:", err); }
     } 
     else if (['.mp4', '.mkv', '.avi', '.mov'].includes(ext)) {
-        // Videolar için FFMPEG ile 1. saniyeden kare al
+        // Videolar iÃ§in FFMPEG ile 1. saniyeden kare al
         ffmpeg(filePath).screenshots({
             timestamps: ['00:00:01.000'],
             filename: fileName + '.jpg',
             folder: destDir,
             size: '320x?'
-        }).on('error', (err) => console.error("Video thumbnail hatasý:", err.message));
+        }).on('error', (err) => console.error("Video thumbnail hatasÃ½:", err.message));
     }
 }
 
 app.get('/api/files', (req, res) => {
+    return res.status(403).json({ error: "Demo modunda bu iÅŸlem kapalÄ±dÄ±r. Sadece okuma yapÄ±labilir." });
     const folderPath = req.query.folder || '';
     const showHidden = req.query.showHidden === 'true';
     const targetPath = path.join(STORAGE_DIR, folderPath);
-    if (!fs.existsSync(targetPath)) return res.status(404).json({ error: 'Klasör yok' });
+    if (!fs.existsSync(targetPath)) return res.status(404).json({ error: 'KlasÃ¶r yok' });
     
     const hiddenItems = getHiddenItems();
     const items = fs.readdirSync(targetPath, { withFileTypes: true });
@@ -105,14 +106,15 @@ app.get('/api/files', (req, res) => {
 });
 
 app.post('/api/rename', (req, res) => {
+    return res.status(403).json({ error: "Demo modunda bu iÅŸlem kapalÄ±dÄ±r. Sadece okuma yapÄ±labilir." });
     const { currentPath, oldName, newName } = req.body;
     const oldPath = path.join(STORAGE_DIR, currentPath || '', oldName);
     const newPath = path.join(STORAGE_DIR, currentPath || '', newName);
-    if (!fs.existsSync(oldPath)) return res.status(404).json({ error: 'Dosya bulunamadý' });
+    if (!fs.existsSync(oldPath)) return res.status(404).json({ error: 'Dosya bulunamadÃ½' });
     try {
         fs.renameSync(oldPath, newPath);
         
-        // Thumbnail Yeniden Adlandýrma
+        // Thumbnail Yeniden AdlandÃ½rma
         const ext = path.extname(oldName).toLowerCase();
         const isImg = ['.jpg', '.jpeg', '.png', '.webp'].includes(ext);
         const isVid = ['.mp4', '.mkv', '.avi', '.mov'].includes(ext);
@@ -132,16 +134,17 @@ app.post('/api/rename', (req, res) => {
 });
 
 app.post('/api/paste', (req, res) => {
+    return res.status(403).json({ error: "Demo modunda bu iÅŸlem kapalÄ±dÄ±r. Sadece okuma yapÄ±labilir." });
     const { action, sourcePath, targetPath, fileName } = req.body;
     const src = path.join(STORAGE_DIR, sourcePath || '', fileName);
     const dest = path.join(STORAGE_DIR, targetPath || '', fileName);
     
-    if (!fs.existsSync(src)) return res.status(404).json({ error: 'Kaynak bulunamadý' });
+    if (!fs.existsSync(src)) return res.status(404).json({ error: 'Kaynak bulunamadÃ½' });
     try {
         if (action === 'cut') fs.renameSync(src, dest);
         else fs.cpSync(src, dest, { recursive: true });
         
-        // Thumbnail Taþýma/Kopyalama
+        // Thumbnail TaÃ¾Ã½ma/Kopyalama
         const ext = path.extname(fileName).toLowerCase();
         const isImg = ['.jpg', '.jpeg', '.png', '.webp'].includes(ext);
         const isVid = ['.mp4', '.mkv', '.avi', '.mov'].includes(ext);
@@ -169,14 +172,15 @@ app.post('/api/paste', (req, res) => {
 });
 
 app.post('/api/upload', (req, res) => {
+    return res.status(403).json({ error: "Demo modunda bu iÅŸlem kapalÄ±dÄ±r. Sadece okuma yapÄ±labilir." });
     req.setTimeout(0); res.setTimeout(0);
     upload.array('files')(req, res, function (err) {
-        if (err) return res.status(500).json({ error: 'Yükleme hatasý' });
+        if (err) return res.status(500).json({ error: 'YÃ¼kleme hatasÃ½' });
         if (!req.files || req.files.length === 0) return res.status(400).json({ error: 'Dosya yok' });
         const folderPath = req.body.currentPath || '';
         req.files.forEach(file => {
             const ext = path.extname(file.filename).toLowerCase();
-            generateThumbnail(file.path, file.filename, folderPath); // ?? YENÝ: Thumbnail üret
+            generateThumbnail(file.path, file.filename, folderPath); // ?? YENÃ: Thumbnail Ã¼ret
             if (['.mp4', '.mkv', '.avi', '.mov'].includes(ext)) {
                 startHLSConversion(file.path, file.filename, folderPath);
             }
@@ -186,6 +190,7 @@ app.post('/api/upload', (req, res) => {
 });
 
 app.post('/api/upload-chunk', chunkUpload.single('chunk'), (req, res) => {
+    return res.status(403).json({ error: "Demo modunda bu iÅŸlem kapalÄ±dÄ±r. Sadece okuma yapÄ±labilir." });
     req.setTimeout(0); res.setTimeout(0);
     const { fileName, chunkIndex, totalChunks, currentPath } = req.body;
     const safeFileName = Buffer.from(fileName, 'latin1').toString('utf8');
@@ -207,7 +212,7 @@ app.post('/api/upload-chunk', chunkUpload.single('chunk'), (req, res) => {
         writeStream.end();
         writeStream.on('finish', () => {
             fs.rmSync(chunkDir, { recursive: true, force: true });
-            generateThumbnail(finalPath, safeFileName, folderPath); // ?? YENÝ: Chunk birleþince thumbnail üret
+            generateThumbnail(finalPath, safeFileName, folderPath); // ?? YENÃ: Chunk birleÃ¾ince thumbnail Ã¼ret
             const ext = path.extname(safeFileName).toLowerCase();
             if (['.mp4', '.mkv', '.avi', '.mov'].includes(ext)) {
                 startHLSConversion(finalPath, safeFileName, folderPath);
@@ -220,12 +225,13 @@ app.post('/api/upload-chunk', chunkUpload.single('chunk'), (req, res) => {
 });
 
 app.post('/api/move', (req, res) => {
-    // Paste mantýðý ile ayný çalýþacak þekilde güncelledim
+    // Paste mantÃ½Ã°Ã½ ile aynÃ½ Ã§alÃ½Ã¾acak Ã¾ekilde gÃ¼ncelledim
+    return res.status(403).json({ error: "Demo modunda bu iÅŸlem kapalÄ±dÄ±r. Sadece okuma yapÄ±labilir." });
     const { currentPath, fileName, targetFolder } = req.body;
     req.body.action = 'cut';
     req.body.sourcePath = currentPath;
     req.body.targetPath = path.join(currentPath || '', targetFolder);
-    app._router.handle(req, res); // Üstteki paste rotasýna yönlendirir (Kod tekrarýný önler)
+    app._router.handle(req, res); // Ãœstteki paste rotasÃ½na yÃ¶nlendirir (Kod tekrarÃ½nÃ½ Ã¶nler)
 });
 
 app.post('/api/hide', (req, res) => {
@@ -262,9 +268,9 @@ function startHLSConversion(filePath, safeName, folderPath) {
             '-hls_list_size 0',    
             '-f hls',              
             '-c:v libx264',        
-            '-preset veryfast',     // Daha iyi sýkýþtýrma için veryfast
-            '-vf scale=-2:720',     // Tüm yeni videolarý 720p yap
-            '-maxrate 2000k',       // Boyutu þiþirmemesi için veri limiti
+            '-preset veryfast',     // Daha iyi sÃ½kÃ½Ã¾tÃ½rma iÃ§in veryfast
+            '-vf scale=-2:720',     // TÃ¼m yeni videolarÃ½ 720p yap
+            '-maxrate 2000k',       // Boyutu Ã¾iÃ¾irmemesi iÃ§in veri limiti
             '-bufsize 4000k',       // Tampon bellek limiti
             '-tune zerolatency',   
             '-crf 28',             
@@ -277,7 +283,7 @@ function startHLSConversion(filePath, safeName, folderPath) {
             }
         })
         .on('error', (err) => {
-            console.error("FFMPEG Hatasý:", err);
+            console.error("FFMPEG HatasÃ½:", err);
             io.emit('conversion-progress', { fileName: safeName, percent: -1 });
         })
         .on('end', () => {
@@ -287,6 +293,7 @@ function startHLSConversion(filePath, safeName, folderPath) {
         .run();
 }
 app.post('/api/folders', (req, res) => {
+    return res.status(403).json({ error: "Demo modunda bu iÅŸlem kapalÄ±dÄ±r. Sadece okuma yapÄ±labilir." });
     const { currentPath, folderName } = req.body;
     const newPath = path.join(STORAGE_DIR, currentPath || '', folderName);
     if (!fs.existsSync(newPath)) fs.mkdirSync(newPath, { recursive: true });
@@ -294,6 +301,7 @@ app.post('/api/folders', (req, res) => {
 });
 
 app.delete('/api/files', (req, res) => {
+    return res.status(403).json({ error: "Demo modunda bu iÅŸlem kapalÄ±dÄ±r. Sadece okuma yapÄ±labilir." });
     const { currentPath, name } = req.body;
     const storagePath = path.join(STORAGE_DIR, currentPath || '', name);
     if (fs.existsSync(storagePath)) fs.rmSync(storagePath, { recursive: true, force: true });
@@ -329,11 +337,11 @@ const rebuildHLSQueue = async (dir = STORAGE_DIR, currentFolder = '') => {
                     const hlsFolderPath = path.join(HLS_DIR, currentFolder, safeHlsName);
                     
                     if (fs.existsSync(path.join(hlsFolderPath, 'index.m3u8'))) {
-                        console.log(`? Atlandý (Zaten var): ${file.name}`);
+                        console.log(`? AtlandÃ½ (Zaten var): ${file.name}`);
                         continue; 
                     }
 
-                    console.log(`?? Ýþleniyor (720p Web): ${file.name}`);
+                    console.log(`?? ÃÃ¾leniyor (720p Web): ${file.name}`);
                     
                     await new Promise((resolve) => {
                         if (!fs.existsSync(hlsFolderPath)) fs.mkdirSync(hlsFolderPath, { recursive: true });
@@ -343,16 +351,16 @@ const rebuildHLSQueue = async (dir = STORAGE_DIR, currentFolder = '') => {
                                 '-profile:v baseline', '-level 3.0', '-start_number 0',
                                 '-hls_time 2', '-hls_list_size 0', '-f hls',
                                 '-c:v libx264', '-preset veryfast', 
-                                '-vf scale=-2:720', '-maxrate 2000k', '-bufsize 4000k', // ?? Büyü burada!
+                                '-vf scale=-2:720', '-maxrate 2000k', '-bufsize 4000k', // ?? BÃ¼yÃ¼ burada!
                                 '-tune zerolatency', '-crf 28', '-threads 0'
                             ])
                             .output(path.join(hlsFolderPath, 'index.m3u8'))
                             .on('end', () => {
-                                console.log(`? Tamamlandý: ${file.name}`);
+                                console.log(`? TamamlandÃ½: ${file.name}`);
                                 resolve();
                             })
                             .on('error', (err) => {
-                                console.error(`?? FFmpeg Hatasý (${file.name}):`, err.message);
+                                console.error(`?? FFmpeg HatasÃ½ (${file.name}):`, err.message);
                                 resolve();
                             })
                             .run();
@@ -360,16 +368,16 @@ const rebuildHLSQueue = async (dir = STORAGE_DIR, currentFolder = '') => {
                 }
             }
         } catch (err) {
-            console.error(`? Beklenmedik dosya hatasý (${file.name}):`, err.message);
+            console.error(`? Beklenmedik dosya hatasÃ½ (${file.name}):`, err.message);
             continue; 
         }
     }
 };
 
-// ?? MOTORU ATEÞLEYEN KISIM BURASI (Eðer // varsa çalýþmaz, o yüzden temizledik)
-console.log("??? Güvenli 720p video dönüþtürme kuyruðu baþlatýldý...");
+// ?? MOTORU ATEÃžLEYEN KISIM BURASI (EÃ°er // varsa Ã§alÃ½Ã¾maz, o yÃ¼zden temizledik)
+console.log("??? GÃ¼venli 720p video dÃ¶nÃ¼Ã¾tÃ¼rme kuyruÃ°u baÃ¾latÃ½ldÃ½...");
 rebuildHLSQueue().then(() => {
-    console.log("?? Tüm eski videolar baþarýyla 720p HLS sistemine geçirildi!");
+    console.log("?? TÃ¼m eski videolar baÃ¾arÃ½yla 720p HLS sistemine geÃ§irildi!");
 });
 
 // STANDART SUNUCU AYARLARI
