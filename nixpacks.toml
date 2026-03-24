@@ -8,7 +8,7 @@ cmds = ["cd frontend && npm install", "cd backend && npm install"]
 
 [phases.build]
 cmds = [
-  "cd frontend && npx electron-vite build", 
+  "cd frontend && mkdir -p src/main src/preload && touch src/main/index.ts src/main/index.js src/preload/index.ts src/preload/index.js && npx electron-vite build",
   "cp -r frontend/out/renderer backend/dist || cp -r frontend/dist/renderer backend/dist || cp -r frontend/dist backend/"
 ]
 
