@@ -7,7 +7,10 @@ aptPkgs = ["ffmpeg"]
 cmds = ["cd frontend && npm install", "cd backend && npm install"]
 
 [phases.build]
-cmds = ["cd frontend && npm run build", "cp -r frontend/dist backend/"]
+cmds = [
+  "cd frontend && npx electron-vite build", 
+  "cp -r frontend/out/renderer backend/dist || cp -r frontend/dist/renderer backend/dist || cp -r frontend/dist backend/"
+]
 
 [start]
 cmd = "cd backend && node index.js"
