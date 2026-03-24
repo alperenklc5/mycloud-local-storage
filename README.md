@@ -1,3 +1,11 @@
+<img width="1138" height="783" alt="Ekran görüntüsü 2026-03-24 112509" src="https://github.com/user-attachments/assets/e170f0de-4b18-4e4d-8387-0965df622770" />
+<img width="1887" height="800" alt="Ekran görüntüsü 2026-03-24 112422" src="https://github.com/user-attachments/assets/5b6dd2e5-e52c-48af-a002-6f2aa4193119" />
+<img width="1907" height="1022" alt="Ekran görüntüsü 2026-03-24 112405" src="https://github.com/user-attachments/assets/81392535-18fd-4434-9267-253f278e9a73" />
+<img width="1919" height="1003" alt="Ekran görüntüsü 2026-03-24 112014" src="https://github.com/user-attachments/assets/2b097a45-f690-49ff-a933-ba64a5be4a1f" />
+![mobil_app04](https://github.com/user-attachments/assets/ca141021-8d97-4284-a2de-e23d69cf5464)
+![mobil_app02](https://github.com/user-attachments/assets/c914136a-c454-4c1f-9ecb-932a4c10d31d)
+![mobil_app01](https://github.com/user-attachments/assets/2961f24f-64fa-4a98-a720-10a234011d3d)
+![mobil_app](https://github.com/user-attachments/assets/939d0bf3-f06c-41cf-9c42-4b50bd07f027)
 MyCloud - Kişisel Yerel Bulut Sunucusu
 Bu proje, atıl durumdaki eski bir bilgisayara Ubuntu Server kurularak geliştirilmiş kişisel bir bulut depolama uygulamasıdır. Temel amacı, uzaktan erişim sağlayarak (Tailscale vb. araçlarla) dosya yükleme, indirme, klasör yönetimi ve mobil cihazlardan otomatik yedekleme yapmaktır.
 
@@ -34,6 +42,7 @@ Kullanılan Teknolojiler
 * Hls.js: HLS formatındaki video parçalarını tarayıcıda oynatabilmek için.
 
 * Capacitor: Mobil cihazın yerel depolamasına erişip, sadece yeni fotoğrafları bularak sunucuya otomatik yedekleyen (sync) mobil uyumluluk için.
+![mobil_app04](https://github.com/user-attachments/assets/ca141021-8d97-4284-a2de-e23d69cf5464)
 
 PM2: Sunucu kodlarının arka planda sürekli çalışması ve hata durumunda yeniden başlatılması için.
 
@@ -52,3 +61,20 @@ Logları takip etmek için:
 
 Bash
 pm2 logs
+### Frontend ve Mobil Uygulama (Capacitor) Kurulumu
+
+Uygulamanın arayüzünü çalıştırmak ve Android için APK almak istiyorsanız:
+
+1. `frontend` klasörüne girip bağımlılıkları yükleyin:
+   ```bash
+   npm install
+React projesini derleyin (Build alın):
+
+Bash
+npm run build
+Capacitor ile Android projesini güncelleyin ve Android Studio'da açın:
+
+Bash
+npx cap sync android
+npx cap open android
+Açılan Android Studio üzerinden kendi cihazınıza doğrudan kurabilir veya "Build APK" seçeneği ile telefonunuza yükleyebilirsiniz. (Sunucu IP adresinizi .env veya App.tsx içinden kendi yerel/Tailscale IP'niz ile değiştirmeyi unutmayın!)
